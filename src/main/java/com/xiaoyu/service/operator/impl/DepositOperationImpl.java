@@ -7,18 +7,11 @@ import com.xiaoyu.service.operator.DepositOperation;
 import com.xiaoyu.service.operator.BaseOperation;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 public class DepositOperationImpl extends BaseOperation implements DepositOperation {
     @Override
     public void deposit(Account account, BigDecimal amount) {
-        Operation operation = new Operation(amount, Type.DEPOSIT);
-        account.setAmount(account.getAmount().add(operation.getAmount()));
-        operation.setBalance(account.getAmount());
-
-        ArrayList<Operation> operations = account.getOperations();
-        operations.add(operation);
-        account.setOperations(operations);
+        account.setAmount(account.getAmount().add(amount));
+        updateOperations(account, new Operation(amount, Type.DEPOSIT, account.getAmount()));
     }
-
 }

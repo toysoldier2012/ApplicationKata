@@ -8,34 +8,25 @@ import com.xiaoyu.service.operator.WithdrawalOperation;
 import com.xiaoyu.service.exceptions.AmountNotEnoughException;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 public class WithdrawalOperationImpl extends BaseOperation implements WithdrawalOperation {
     @Override
     public void withdrawal(Account account, BigDecimal amount) throws AmountNotEnoughException {
         checkAmount(account, amount);
 
-        Operation operation = new Operation(amount, Type.WITHDRAW);
-        account.setAmount(account.getAmount().subtract(operation.getAmount()));
-        operation.setBalance(account.getAmount());
+        account.setAmount(account.getAmount().subtract(amount));
 
-        ArrayList<Operation> operations = account.getOperations();
-        operations.add(operation);
-        account.setOperations(operations);
+        updateOperations(account, new Operation(amount, Type.WITHDRAW, account.getAmount()));
     }
 
     @Override
     public void withdrawalAll(Account account) {
-        Operation operation = new Operation(account.getAmount(), Type.WITHDRAW);
+        updateOperations(account, new Operation(account.getAmount(), Type.WITHDRAW));
         account.setAmount(BigDecimal.ZERO);
-
-        ArrayList<Operation> operations = account.getOperations();
-        operations.add(operation);
-        account.setOperations(operations);
     }
 
     @Override
     public void checkAmount(Account account, BigDecimal amount) throws AmountNotEnoughException {
-        if (account.getAmount().compareTo(amount) == -1) throw new AmountNotEnoughException("Not enough amount");
+        if (account.getAmount().compareTo(amount) == -1) throw new AmountNotEnoughException();
     }
 }

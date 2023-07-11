@@ -16,6 +16,13 @@ public class Operation extends Entity {
         this.balance = BigDecimal.ZERO;
     }
 
+    public Operation(BigDecimal amount, Type type, BigDecimal balance) {
+        this.operationCreatedTime = LocalDateTime.now();
+        this.amount = amount;
+        this.type = type;
+        this.balance = balance;
+    }
+
     public LocalDateTime getOperationCreatedTime() {
         return operationCreatedTime;
     }

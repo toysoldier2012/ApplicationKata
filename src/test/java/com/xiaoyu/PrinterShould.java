@@ -25,10 +25,15 @@ public class PrinterShould {
         try {
             withdrawalOperation.withdrawal(account, BigDecimal.valueOf(200));
         } catch (AmountNotEnoughException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
         depositOperation.deposit(account, BigDecimal.valueOf(100));
         withdrawalOperation.withdrawalAll(account);
+        try {
+            withdrawalOperation.withdrawal(account, BigDecimal.valueOf(200));
+        } catch (AmountNotEnoughException e) {
+            System.out.println(e.getMessage());
+        }
         depositOperation.deposit(account, BigDecimal.valueOf(456));
         depositOperation.deposit(account, BigDecimal.valueOf(89));
     }
