@@ -13,9 +13,7 @@ public class WithdrawalOperationImpl extends BaseOperation implements Withdrawal
     @Override
     public void withdrawal(Account account, BigDecimal amount) throws AmountNotEnoughException {
         checkAmount(account, amount);
-
         account.setAmount(account.getAmount().subtract(amount));
-
         updateOperations(account, new Operation(amount, Type.WITHDRAW, account.getAmount()));
     }
 

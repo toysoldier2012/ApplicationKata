@@ -28,7 +28,7 @@ public class AccountShould {
     }
 
     @Test
-    public void isAccountOperationsKeepOrder(){
+    public void should_account_operations_keep_order_when_adding_operation(){
         ArrayList<Operation> operations = account.getOperations();
         operations.add(operation1);
         operations.add(operation2);

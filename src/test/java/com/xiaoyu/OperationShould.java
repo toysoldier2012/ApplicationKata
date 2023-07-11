@@ -21,7 +21,7 @@ public class OperationShould {
     }
 
     @Test
-    public void testDepositionOperation(){
+    public void should_deposit_add_operation(){
         DepositOperationImpl depositOperation = new DepositOperationImpl();
         depositOperation.deposit(account, BigDecimal.valueOf(1000));
 
@@ -30,7 +30,7 @@ public class OperationShould {
     }
 
     @Test
-    public void testWithdrawalOperation(){
+    public void should_throw_exception_when_withdrawal_if_account_dont_have_enough_money(){
         WithdrawalOperationImpl withdrawalOperation = new WithdrawalOperationImpl();
 
         assertThrows(AmountNotEnoughException.class, () -> withdrawalOperation.withdrawal(account, BigDecimal.valueOf(900)));
